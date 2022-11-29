@@ -47,11 +47,12 @@ if __name__ == "__main__":
     except subprocess.CalledProcessError as e:
         # no tags reachable (e.g. on a topic branch in a fork), see
         # https://stackoverflow.com/questions/4916492/git-describe-fails-with-fatal-no-names-found-cannot-describe-anything
-        if e.output.rstrip() == b"fatal: No names found, cannot describe anything.":
-            tag = []
-        else:
-            print(e.output)
-            raise
+        # if e.output.rstrip() == b"fatal: No names found, cannot describe anything.":
+        #     tag = []
+        # else:
+        #     print(e.output)
+        #     raise
+        tag = "4.x"
 
     if len(tag) == 1:
         # tag identifies the build and should be a sequential revision number
@@ -60,7 +61,7 @@ if __name__ == "__main__":
     # rolling has converted into string using get_and_set_info() function in setup.py
     elif rolling == "True":
         # rolling version identifier, will be published in a dedicated rolling PyPI repository
-        version = date.today().strftime('%Y%m%d')
+        version = date.today().strftime("%Y%m%d")
         opencv_version += ".{}".format(version)
     else:
         # local version identifier, not to be published on PyPI
